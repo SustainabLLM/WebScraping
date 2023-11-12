@@ -231,41 +231,9 @@ def inference(query):
 
     try:
         # best_text = best_website_page[max(best_index_scores, key=best_index_scores.get)]
-        print(best_text)
+        return best_text
     except:
-        best_text = ""
         print("error")
-
-    model_name = "sshleifer/distilbart-cnn-6-6"
-    model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
-    pipe = pipeline("summarization", model=model_name)
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
-
-    ARTICLE_TO_SUMMARIZE = best_text
-    inputs = tokenizer([ARTICLE_TO_SUMMARIZE], max_length=1024, return_tensors="pt")
-
-    summary_ids = model.generate(
-        inputs["input_ids"], num_beams=2, min_length=20, max_length=20
-    )
-    tokenizer.batch_decode(
-        summary_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False
-    )[0]
-
-    API_URL = "https://api-inference.huggingface.co/models/sshleifer/distilbart-cnn-6-6"
-    headers = {"Authorization": "Bearer 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"}
-
-    def query(payload):
-        response = requests.post(API_URL, headers=headers, json=payload)
-        return response.json()
-
-    output = query(
-        {
-            "inputs": best_text,
-        }
-    )
-
-    print("-----------------")
-    print(output[0]["summary_text"])
 
 
 inference(query)
