@@ -30,16 +30,17 @@ nltk.download("stopwords")
 query = input()
 
 
-def inference(query):
+def inference(query): # wrapper method that returns a string consisting of the 
+                      # scraped data from the most relevant webpages according to a user input query
     keywords_amount = 5
     keywordList = []
 
-    def remove_special_characters(queryText):
+    def remove_special_characters(queryText): # preprocess the prompt from the user by removing special characters (might interfere with scraping)
         pattern = r"[^a-zA-Z0-9\s]"
         cleaned_string = re.sub(pattern, "", queryText)
         return cleaned_string
 
-    def prioritize_keywords(t, field_keywords):
+    def prioritize_keywords(t, field_keywords): # method to add "
         keywords_with_weights = {}
 
         for keyword in field_keywords:
@@ -232,8 +233,10 @@ def inference(query):
 
     try:
         # best_text = best_website_page[max(best_index_scores, key=best_index_scores.get)]
-        return [best_text,list_of_websites]
+        return best_text
     except:
         print("error")
 
-!rm -rf */
+# Uncomment to delete all folders in current directory! Mostly used for testing,
+# but since the model also saves folders in current directory it can be used to clean up!
+# !rm -rf */
