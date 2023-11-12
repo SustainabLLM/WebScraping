@@ -48,19 +48,18 @@ def inference(query):
 
         return keywords_with_weights
 
-    def get_weighted_keywords():
-        text = remove_special_characters(query)
+    text = remove_special_characters(query)
 
-        tokens = word_tokenize(text)
+    tokens = word_tokenize(text)
 
-        stop_words = set(stopwords.words("english"))
-        filtered_tokens = [word for word in tokens if word.lower() not in stop_words]
+    stop_words = set(stopwords.words("english"))
+    filtered_tokens = [word for word in tokens if word.lower() not in stop_words]
 
-        freq_dist = FreqDist(filtered_tokens)
+    freq_dist = FreqDist(filtered_tokens)
 
-        most_common = dict(freq_dist.most_common(keywords_amount))
+    most_common = dict(freq_dist.most_common(keywords_amount))
 
-        field_keywords = [
+    field_keywords = [
             "sustainable",
             "stainless steel",
             "recyclable",
@@ -90,26 +89,24 @@ def inference(query):
             "inflation",
             "trading",
             "news",
-        ]
+    ]
 
-        keywords_with_weights = prioritize_keywords(
-            remove_special_characters(query), field_keywords
-        )
+    keywords_with_weights = prioritize_keywords(
+        remove_special_characters(query), field_keywords
+    )
 
-        combined_keywords = dict(Counter(most_common) + Counter(keywords_with_weights))
+    combined_keywords = dict(Counter(most_common) + Counter(keywords_with_weights))
 
-        sorted_ck = dict(
-            Counter(
-                dict(
-                    sorted(combined_keywords.items(), key=lambda x: x[1], reverse=True)
-                )
-            ).most_common(keywords_amount)
-        )
+    sorted_ck = dict(
+        Counter(
+            dict(
+                sorted(combined_keywords.items(), key=lambda x: x[1], reverse=True)
+            )
+        ).most_common(keywords_amount)
+    )
 
-        for keyword in sorted_ck:
-            keywordList.append(keyword)
-
-    get_weighted_keywords()
+    for keyword in sorted_ck:
+        keywordList.append(keyword)
 
     try:
         from googlesearch import search
@@ -234,6 +231,3 @@ def inference(query):
         return best_text
     except:
         print("error")
-
-
-inference(query)
