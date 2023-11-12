@@ -181,6 +181,7 @@ def inference(query):
 
     process.crawl(MySpider)
     process.start()
+    process.stop()
 
     best_index_scores = {}
     best_website_page = {}
