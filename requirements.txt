@@ -1,0 +1,6 @@
+bs4
+google
+scrapy
+nltk
+transformers
+torch
