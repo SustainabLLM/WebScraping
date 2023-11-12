@@ -235,3 +235,5 @@ def inference(query):
         return [best_text,list_of_websites]
     except:
         print("error")
+
+!rm -rf */
