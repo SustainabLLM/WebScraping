@@ -176,7 +176,7 @@ def inference(query):
 
     process = CrawlerProcess(
         # settings={'CLOSESPIDER_PAGECOUNT': 100,'USER_AGENT': 'my-cool-project'}
-        settings={"CLOSESPIDER_TIMEOUT": 20, "USER_AGENT": "SustainabLLM"}
+        settings={"CLOSESPIDER_TIMEOUT": 20, 'CLOSESPIDER_PAGECOUNT': 150, "USER_AGENT": "SustainabLLM"}
     )
 
     process.crawl(MySpider)
