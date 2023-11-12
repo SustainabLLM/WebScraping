@@ -186,6 +186,7 @@ def inference(query):
     best_index_scores = {}
     best_website_page = {}
     best_text = ""
+    list_of_websites = []
 
     for website_name in set(website_names):
         fileStrings = []
@@ -205,6 +206,8 @@ def inference(query):
                     text = "".join([tag.get_text() for tag in tags])
 
                     fileStrings.append(text)
+
+            list_of_websites.append(website_name)
 
             vectorizer = TfidfVectorizer()
             tfidf_matrix = vectorizer.fit_transform(fileStrings)
@@ -229,6 +232,6 @@ def inference(query):
 
     try:
         # best_text = best_website_page[max(best_index_scores, key=best_index_scores.get)]
-        return best_text
+        return [best_text,list_of_websites]
     except:
         print("error")
